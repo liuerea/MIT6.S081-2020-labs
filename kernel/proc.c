@@ -14,6 +14,8 @@ struct proc *initproc;
 
 int nextpid = 1;
 struct spinlock pid_lock;
+//for sysinfo lab
+int No_UNUSED_proc;
 
 extern void forkret(void);
 static void wakeup1(struct proc *chan);
@@ -128,6 +130,8 @@ found:
   p->context.sp = p->kstack + PGSIZE;
   //for init trace lab
   p->mask = 0;
+  // for sysinfo lab
+  ++No_UNUSED_proc;
   return p;
 }
 
@@ -151,6 +155,8 @@ freeproc(struct proc *p)
   p->killed = 0;
   p->xstate = 0;
   p->state = UNUSED;
+  //for sysinfo lab
+  --No_UNUSED_proc;
 }
 
 // Create a user page table for a given process,
